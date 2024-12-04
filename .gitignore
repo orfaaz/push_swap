@@ -1,0 +1,8 @@
+.vimrc
+.swap
+.vscode
+*.o
+.gdb_history
+repo42_00/
+test
+push_swap

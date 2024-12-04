@@ -1,0 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: agamay <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/02 17:26:23 by agamay            #+#    #+#             */
+/*   Updated: 2024/12/02 17:30:29 by agamay           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
+
+# include <unistd.h>
+# include <stdlib.h>
+
+typedef struct s_pslist
+{
+	int				data;
+	struct s_pslist	*prev;
+	struct s_pslist	*next;
+}					t_pslist;
+
+t_pslist	*parser(int ac, char **av);
+t_pslist	*ps_lstnew(int data);
+void		ps_lstadd_front(t_pslist **lst, t_pslist *new);
+void		ps_lstadd_back(t_pslist **lst, t_pslist *new);
+int			ps_lstsize(t_pslist *lst);
+t_pslist	*ps_lstlast(t_pslist *lst);
+void		ps_lstdelone(t_pslist *lst);
+void		ps_lstclear(t_pslist **lst);
+#endif
