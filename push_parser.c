@@ -58,9 +58,9 @@ t_pslist	*parser(int ac, char **av)
 		if (!isargvalid(av[i]))
 			ft_error();
 	}
-	while (--i)//how to detect int overflow in atoi? (cmp w itoa) (modify atoi)
+	while (--i)
 	{
-		data = atoi(av[i]);
+		data = ft_ofatoi(av[i]);
 		checkdup(&stack_a, data);
 	}
 	return (stack_a);

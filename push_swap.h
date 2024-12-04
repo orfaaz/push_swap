@@ -24,6 +24,16 @@ typedef struct s_pslist
 }					t_pslist;
 
 t_pslist	*parser(int ac, char **av);
+void    	ft_error(void);
+int 		ft_ofatoi(char *nbr);
+void		swap(t_pslist **stack);
+void	    push(t_pslist **orig, t_pslist **dest);
+void    	rot(t_pslist **stack);
+void    	revrot(t_pslist **stack);
+void    	call_switch(int s, ...);
+void    	call_push(t_pslist **orig, t_pslist **dest, int s);
+void    	call_rot(int s, ...);
+void    	call_revrot(int s, ...);
 t_pslist	*ps_lstnew(int data);
 void		ps_lstadd_front(t_pslist **lst, t_pslist *new);
 void		ps_lstadd_back(t_pslist **lst, t_pslist *new);
