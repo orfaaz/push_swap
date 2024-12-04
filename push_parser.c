@@ -49,6 +49,7 @@ static void	checkdup(t_pslist **stack_a, int data)
 t_pslist	*parser(int ac, char **av)
 {
 	t_pslist	*stack_a;
+	t_pslist	*lst_last;
 	int			data;
 	int			i;
 
@@ -63,5 +64,8 @@ t_pslist	*parser(int ac, char **av)
 		data = ft_ofatoi(av[i]);
 		checkdup(&stack_a, data);
 	}
+	lst_last = ps_lstlast(stack_a);
+	lst_last->next = stack_a;
+	stack_a->prev = lst_last;
 	return (stack_a);
 }

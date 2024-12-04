@@ -12,8 +12,10 @@
 
 #include "push_swap.h"
 #include "libft.h"
+#include <stdarg.h>
 
-void    swap(t_pslist **stack)
+//a update lst circulaire
+void    swap_exec(t_pslist **stack)
 {
     t_pslist    *temp;
 
@@ -25,7 +27,8 @@ void    swap(t_pslist **stack)
     *stack = temp;
 }
 
-void    push(t_pslist **orig, t_pslist **dest)
+//a update lst circulaire
+void    push(t_pslist **orig, t_pslist **dest, int s)
 {
     t_pslist    *temp;
 
@@ -34,27 +37,57 @@ void    push(t_pslist **orig, t_pslist **dest)
     *orig = (*orig)->next;
     temp->next = *dest;
     *dest = temp;
+    ft_printf("p%c\n", s);
 }
 
-void    rot(t_pslist **stack)
+void    swap(int s, ...)
 {
-    t_pslist    *temp;
+    va_list stack;
 
-    temp = ps_lstlast(*stack);
-    temp->next = *stack;
-    (*stack)->prev = temp;
-    temp = *stack;
+    va_start(stack, s);
+    swap(va_arg(stack, t_pslist **));
+    if (s != 's')
+        ft_printf("s%c\n", s);
+    else
+    {
+        swap(va_arg(stack, t_pslist **));
+        ft_putstr_fd("ss\n", 1);
+    }
+    va_end(stack);
+}
+
+void    rot(int s, ...)
+{
+    va_list stack;
+
+    va_start(stack, s);
+    va_arg(stack, t_pslist **);
     *stack = (*stack)->next;
-    temp->next = NULL;
+    if (s != 's')
+        ft_printf("r%c\n", s);
+    else
+    {
+        va_arg(stack, t_pslist **);
+        *stack = (*stack)->next;
+        ft_putstr_fd("rr\n", 1);
+    }
+    va_end(stack);
 }
 
-void    revrot(t_pslist **stack)
+void    revrot(int s, ...)
 {
-    t_pslist    *temp;
+    va_list stack;
 
-    temp = ps_lstlast(*stack);
-    temp->next = *stack;
-    temp->prev->next = NULL;
-    temp->prev = NULL;
-    *stack = temp;
+    va_start(stack, s);
+    va_arg(stack, t_pslist **);
+    *stack = (*stack)->next;
+    if (s != 's')
+        ft_printf("rr%c\n", s);
+    else
+    {
+        va_arg(stack, t_pslist **);
+        *stack = (*stack)->next;
+        ft_putstr_fd("rrr\n", 1);
+    }
+    va_end(stack);
 }

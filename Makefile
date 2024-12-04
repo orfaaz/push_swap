@@ -16,8 +16,7 @@ SRC = push_swap.c \
 	push_parser.c \
 	push_lstfct01.c \
 	push_lstfct02.c \
-	push_fct01.c \
-	push_fct02.c \
+	push_fct01.c
 
 SRC_TEST = test01.c
 
@@ -41,9 +40,9 @@ test: libft $(OBJ_TEST)
 	$(CC) -o $@ $(OBJ_TEST) $(LIB)
 
 libft:
-	make -C ../libft
+	make -sC ../libft
 	cp ../libft/libft.a ./
-	make fclean -C ../libft
+	make fclean -sC ../libft
 
 all: $(OBJ) $(NAME)
 
