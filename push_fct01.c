@@ -14,29 +14,29 @@
 #include "libft.h"
 #include <stdarg.h>
 
-//a update lst circulaire
 void    swap_exec(t_pslist **stack)
 {
     t_pslist    *temp;
 
     temp = (*stack)->next;
-    (*stack)->prev = temp;
-    temp->prev = NULL;
+    temp->prev = (*stack)->prev;
     (*stack)->next = temp->next;
+    (*stack)->prev = temp;
     temp->next = *stack;
     *stack = temp;
 }
 
-//a update lst circulaire
 void    push(t_pslist **orig, t_pslist **dest, int s)
 {
     t_pslist    *temp;
 
-    (*dest)->prev = *orig;
-    temp = *orig;
-    *orig = (*orig)->next;
-    temp->next = *dest;
-    *dest = temp;
+    temp = (*orig)->next;
+    (*orig)->next = *dest;
+    (*orig)->prev = (*dest)->prev;
+    (*dest)->prev->next = (*orig);
+    (*dest)->prev = (*orig);
+    *dest = *orig;
+    *orig = temp;
     ft_printf("p%c\n", s);
 }
 
