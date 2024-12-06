@@ -23,6 +23,15 @@ typedef struct s_pslist
 	struct s_pslist	*next;
 }					t_pslist;
 
+typedef struct s_best
+{
+	int	size_a;
+	int	size_b;
+	int	pos;
+	int	target;
+	int	moves;
+}		t_best;
+
 t_pslist	*parser(int ac, char **av);
 void    	ft_error(void);
 int 		ft_ofatoi(char *nbr);

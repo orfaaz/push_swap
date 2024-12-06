@@ -13,6 +13,7 @@
 #include "push_swap.h"
 #include "libft.h"
 
+//!\needs update for circulat list
 t_pslist	*ps_lstnew(int data)
 {
 	t_pslist	*new_node;
@@ -26,6 +27,7 @@ t_pslist	*ps_lstnew(int data)
 	return (new_node);
 }
 
+//!\needs update for circulat list
 void	ps_lstadd_front(t_pslist **lst, t_pslist *new)
 {
 	if (!(lst && new))
@@ -35,6 +37,7 @@ void	ps_lstadd_front(t_pslist **lst, t_pslist *new)
 	*lst = new;
 }
 
+//!\needs update for circulat list
 void	ps_lstadd_back(t_pslist **lst, t_pslist *new)
 {
 	t_pslist	*temp;

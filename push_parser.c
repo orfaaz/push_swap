@@ -37,15 +37,18 @@ static void	checkdup(t_pslist **stack_a, int data)
 	while (temp)
 	{
 		if (data == (*temp).data)
+		{
+			ps_lstclear(stack_a);
 			ft_error();
+		}
 		temp = temp->next;
 	}
 	ps_lstadd_front(&stack_a, ps_lstnew(data));
 }
 
-//!\ av[1] must be at the top of the stack
 //we check if we have only numbers as args.
-//if we do, we put them in a list, ready to be sorted.
+//if we do, we put them in a db linked circular list, 
+//ready to be sorted.
 t_pslist	*parser(int ac, char **av)
 {
 	t_pslist	*stack_a;

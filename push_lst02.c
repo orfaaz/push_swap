@@ -13,7 +13,7 @@
 #include "push_swap.h"
 #include "libft.h"
 
-//!\not used
+//!\needs update for circulat list
 int	ps_lstsize(t_pslist *lst)
 {
 	int		len;
@@ -29,6 +29,7 @@ int	ps_lstsize(t_pslist *lst)
 	return (len);
 }
 
+//!\needs update for circulat list
 t_pslist	*ps_lstlast(t_pslist *lst)
 {
 	if (!lst)
@@ -46,6 +47,7 @@ void	ps_lstdelone(t_pslist *lst)
 	free(lst);
 }
 
+//!\needs update for circulat list
 void	ps_lstclear(t_pslist **lst)
 {
 	void	*temp;
