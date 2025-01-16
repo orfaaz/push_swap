@@ -26,6 +26,22 @@ void    swap_exec(t_pslist **stack)
     *stack = temp;
 }
 
+void    swap(int s, ...)
+{
+    va_list stack;
+
+    va_start(stack, s);
+    swap_exec(va_arg(stack, t_pslist **));
+    if (s != 's')
+        ft_printf("s%c\n", s);
+    else
+    {
+        swap_exec(va_arg(stack, t_pslist **));
+        ft_putstr_fd("ss\n", 1);
+    }
+    va_end(stack);
+}
+
 void    push(t_pslist **orig, t_pslist **dest, int s)
 {
     t_pslist    *temp;
@@ -38,22 +54,6 @@ void    push(t_pslist **orig, t_pslist **dest, int s)
     *dest = *orig;
     *orig = temp;
     ft_printf("p%c\n", s);
-}
-
-void    swap(int s, ...)
-{
-    va_list stack;
-
-    va_start(stack, s);
-    swap(va_arg(stack, t_pslist **));
-    if (s != 's')
-        ft_printf("s%c\n", s);
-    else
-    {
-        swap(va_arg(stack, t_pslist **));
-        ft_putstr_fd("ss\n", 1);
-    }
-    va_end(stack);
 }
 
 void    rot(int s, ...)
@@ -80,13 +80,13 @@ void    revrot(int s, ...)
 
     va_start(stack, s);
     va_arg(stack, t_pslist **);
-    *stack = (*stack)->next;
+    *stack = (*stack)->prev;
     if (s != 's')
         ft_printf("rr%c\n", s);
     else
     {
         va_arg(stack, t_pslist **);
-        *stack = (*stack)->next;
+        *stack = (*stack)->prev;
         ft_putstr_fd("rrr\n", 1);
     }
     va_end(stack);

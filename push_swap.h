@@ -19,6 +19,7 @@
 typedef struct s_pslist
 {
 	int				data;
+	int				index;
 	struct s_pslist	*prev;
 	struct s_pslist	*next;
 }					t_pslist;

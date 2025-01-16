@@ -22,22 +22,25 @@ t_pslist	*ps_lstnew(int data)
 	if (!new_node)
 		return (NULL);
 	new_node->data = data;
+	new_node->index = -1;
 	new_node->prev = NULL;
 	new_node->next = NULL;
 	return (new_node);
 }
 
-//!\needs update for circulat list
 void	ps_lstadd_front(t_pslist **lst, t_pslist *new)
 {
+	t_pslist	*last;
+
 	if (!(lst && new))
 		return ;
+	last = ps_lstlast(lst);
 	new->next = *lst;
     (*lst)->prev = new;
+	last->next = new;
 	*lst = new;
 }
 
-//!\needs update for circulat list
 void	ps_lstadd_back(t_pslist **lst, t_pslist *new)
 {
 	t_pslist	*temp;
@@ -52,4 +55,5 @@ void	ps_lstadd_back(t_pslist **lst, t_pslist *new)
 	temp = ft_lstlast(*lst);
 	temp->next = new;
     new->prev = temp;
+	new->next = *lst;
 }

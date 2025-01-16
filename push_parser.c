@@ -28,6 +28,36 @@ static int	isargvalid(char *str)
 	return (0);
 }
 
+//indexes each node with an int from 1 to lstlen. easier to work with.
+void	indexing(t_pslist *stack)
+{
+	t_pslist	*head;
+	t_pslist	*smallest;
+	int			limit;
+	int			len;
+	int			i;
+
+	i = 0;
+	head = stack;
+	len = ps_lstsize(stack);
+	limit = -2147483648;
+	while(++i != len)
+	{
+		smallest = stack;
+		while(stack->next != head)
+		{
+			if(stack->data < smallest->data && stack->data >= limit)
+			{
+				smallest = stack;
+			}
+			stack = stack->next;
+		}
+		smallest->index = i;
+		limit = smallest->data + 1;
+		stack = stack->next;
+	}
+}
+
 //if there are no dups, we can add a new node for the arg
 static void	checkdup(t_pslist **stack_a, int data)
 {
@@ -70,5 +100,6 @@ t_pslist	*parser(int ac, char **av)
 	lst_last = ps_lstlast(stack_a);
 	lst_last->next = stack_a;
 	stack_a->prev = lst_last;
+	indexing(stack_a);
 	return (stack_a);
 }

@@ -13,28 +13,31 @@
 #include "push_swap.h"
 #include "libft.h"
 
-//!\needs update for circulat list
 int	ps_lstsize(t_pslist *lst)
 {
-	int		len;
+	t_pslist	*temp;
+	int			len;
 
 	if (!lst)
 		return (0);
 	len = 1;
-	while (lst->next)
+	temp = lst;
+	while (temp->next != lst)
 	{
-		lst = lst->next;
+		temp = temp->next;
 		len++;
 	}
 	return (len);
 }
 
-//!\needs update for circulat list
 t_pslist	*ps_lstlast(t_pslist *lst)
 {
+	t_pslist	*temp;
+
+	temp = lst;
 	if (!lst)
 		return (NULL);
-	while (lst->next)
+	while (lst->next != temp)
 		lst = lst->next;
 	return (lst);
 }
@@ -47,15 +50,16 @@ void	ps_lstdelone(t_pslist *lst)
 	free(lst);
 }
 
-//!\needs update for circulat list
 void	ps_lstclear(t_pslist **lst)
 {
-	void	*temp;
+	void		*temp;
+	t_pslist	*head;
 
 	if (!lst || !*lst )
 		return ;
 	temp = *lst;
-	while (*lst)
+	head = *lst;
+	while ((*lst)->next != head)
 	{
 		*lst = (*lst)->next;
 		free(temp);

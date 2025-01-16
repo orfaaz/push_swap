@@ -18,27 +18,55 @@ void    exec_best(t_pslist **stack_a, t_pslist **stack_b, t_best best)
 
 }
 
-int countmoves(t_pslist *stack_a, t_pslist *stack_b, int pos, t_best *best)
+void    isbestmove(int len1, int len2, int target[2], t_best *best)
 {
 
 }
 
-void    algo_start(t_pslist *stack_a, t_pslist *stack_b, int size)
+void    find_target(t_pslist stack_1, t_pslist *stack_2, int pos, t_best *best)
+{
+    int i;
+    int target[2];
+    int len;
+
+    i = -1;
+    len = ps_lstsize(stack_2);
+    target[0] = 0;
+    target[1] = stack_2->index;
+    while(++i > len)
+    {
+        if(stack_2->index > target[0] && stack_2->index < stack_1->index)
+            target[0] = i;
+        else if(stack_2->index > target[1])
+            target[1] = i;
+        stack_2 = stack_2->next;
+    }
+    if(!target[0])
+        target[0] = target[1];
+    target[1] = pos;
+    isbestmove(stack_1_len, stack_2_len, target, best);
+}
+
+void    algo_start(t_pslist *stack_1, t_pslist *stack_2, int size)
 {
     t_best      best;
     int         i;
+    int         size;
 
     i = 0;
-    countmoves(stack_a, stack_b, i, &best);
-    while (i < size && !countmoves(stack_a, stack_b, i, &best))
+    size = ps_lstsize(stack_1);
+    find_target(stack_1, stack_2, i, &best);
+    while (i < size)
     {
+        find_target(stack_1, stack_2, i, &best);
+        stack_1 = stack_1->next;
         i++;
     }
-    exec_best(&stack_a, &stack_b, best);
-    
+    exec_best(&stack_1, &stack_2, best);
 }
 
-void    algo_end(t_pslist *stack_a, t_pslist *stack_b)
+// deals with the stack size 3 situation.
+void    algo_3(t_pslist *stack_a)
 {
 
 }
@@ -52,7 +80,7 @@ int	main(int ac, char **av)
     //If no parameters are specified, the program must not display 
     //anything and give the prompt back
     if (ac == 1)
-        return (??);
+        return (??);//improve ft_printf to print **
     stack_a = parser(ac, av);
     //start algo. if A>5, we push to B w turk method until A==3.
     if (ac > 5)
@@ -60,10 +88,10 @@ int	main(int ac, char **av)
         push(&stack_a, &stack_b, 'b');
         push(&stack_a, &stack_b, 'b');
     }
-    while (ps_lstsize(stack_a) > 3)
-        algo_start(stack_a, stack_b, ac - 1);
-    //when A=3. we sort in the least amount of moves, then pA till B mt
-    algo_end(stack_a);
+    while (ac-- > 4)
+        algo_start(stack_a, stack_b);
+    //when A=3. we sort in the least amount of moves, then reverse algo
+    algo_3(stack_a);
     while (stack_b)
         push(stack_b, stack_a, 'a');
     ps_lstclear(stack_a);
