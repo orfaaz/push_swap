@@ -13,18 +13,16 @@
 NAME = push_swap
 
 SRC = push_swap.c \
+	push_algo.c \
 	push_parser.c \
-	push_lstfct01.c \
-	push_lstfct02.c \
-	push_fct01.c
-
-SRC_TEST = test01.c
+	push_lst01.c \
+	push_lst02.c \
+	push_fct01.c \
+	push_utils.c
 
 LIB = libft.a
 
 OBJ = $(SRC:.c=.o)
-
-OBJ_TEST = $(SRC_TEST:.c=.o)
 
 CFLAGS = -Wall -Werror -Wextra -g
 

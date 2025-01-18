@@ -13,6 +13,23 @@
 #include "push_swap.h"
 #include "libft.h"
 
+void	is_sorted(t_pslist *stack)
+{
+	t_pslist	*head;
+	int			not_sorted;
+
+	head = stack;
+	not_sorted = 0;
+	while (stack->next != head)
+	{
+		if (stack->index > stack->next->index)
+			not_sorted = 1;
+		stack = stack->next;
+	}
+	if (!not_sorted)
+		exit(0);
+}
+
 //args can have one symbol, then only digits, int limits.
 static int	isargvalid(char *str)
 {
@@ -64,7 +81,7 @@ static void	checkdup(t_pslist **stack_a, int data)
 	t_pslist	*temp;
 
 	temp = *stack_a;
-	while (temp)
+	while (temp && temp->next != *stack_a)
 	{
 		if (data == (*temp).data)
 		{
@@ -73,7 +90,7 @@ static void	checkdup(t_pslist **stack_a, int data)
 		}
 		temp = temp->next;
 	}
-	ps_lstadd_front(&stack_a, ps_lstnew(data));
+	ps_lstadd_front(stack_a, ps_lstnew(data));
 }
 
 //we check if we have only numbers as args.
@@ -87,11 +104,12 @@ t_pslist	*parser(int ac, char **av)
 	int			i;
 
 	i = 0;
-	while (i++ < ac)
+	while (++i < ac)
 	{
 		if (!isargvalid(av[i]))
 			ft_error();
 	}
+	stack_a = NULL;
 	while (--i)
 	{
 		data = ft_ofatoi(av[i]);

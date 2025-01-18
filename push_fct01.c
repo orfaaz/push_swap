@@ -49,45 +49,48 @@ void    push(t_pslist **orig, t_pslist **dest, int s)
     temp = (*orig)->next;
     (*orig)->next = *dest;
     (*orig)->prev = (*dest)->prev;
-    (*dest)->prev->next = (*orig);
+    (*dest)->prev->next = (*orig); //segfault
     (*dest)->prev = (*orig);
     *dest = *orig;
     *orig = temp;
+    (*dest)->curr_stack = s;
     ft_printf("p%c\n", s);
 }
 
 void    rot(int s, ...)
 {
-    va_list stack;
+    va_list     arg;
+    t_pslist    **stack;
 
-    va_start(stack, s);
-    va_arg(stack, t_pslist **);
+    va_start(arg, s);
+    stack = va_arg(arg, t_pslist **);
     *stack = (*stack)->next;
-    if (s != 's')
+    if (s != 'r')
         ft_printf("r%c\n", s);
     else
     {
-        va_arg(stack, t_pslist **);
+        stack = va_arg(arg, t_pslist **);
         *stack = (*stack)->next;
         ft_putstr_fd("rr\n", 1);
     }
-    va_end(stack);
+    va_end(arg);
 }
 
 void    revrot(int s, ...)
 {
-    va_list stack;
+    va_list arg;
+    t_pslist    **stack;
 
-    va_start(stack, s);
-    va_arg(stack, t_pslist **);
+    va_start(arg, s);
+    stack = va_arg(arg, t_pslist **);
     *stack = (*stack)->prev;
-    if (s != 's')
+    if (s != 'r')
         ft_printf("rr%c\n", s);
     else
     {
-        va_arg(stack, t_pslist **);
+        stack = va_arg(arg, t_pslist **);
         *stack = (*stack)->prev;
         ft_putstr_fd("rrr\n", 1);
     }
-    va_end(stack);
+    va_end(arg);
 }

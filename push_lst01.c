@@ -23,6 +23,7 @@ t_pslist	*ps_lstnew(int data)
 		return (NULL);
 	new_node->data = data;
 	new_node->index = -1;
+	new_node->curr_stack = 'a';
 	new_node->prev = NULL;
 	new_node->next = NULL;
 	return (new_node);
@@ -34,26 +35,30 @@ void	ps_lstadd_front(t_pslist **lst, t_pslist *new)
 
 	if (!(lst && new))
 		return ;
-	last = ps_lstlast(lst);
+	last = NULL;
+	if (*lst)
+		last = ps_lstlast(*lst);
+	else
+		*lst = new;
 	new->next = *lst;
     (*lst)->prev = new;
-	last->next = new;
+	if (last)
+		last->next = new;
 	*lst = new;
 }
 
 void	ps_lstadd_back(t_pslist **lst, t_pslist *new)
 {
-	t_pslist	*temp;
+	t_pslist	*last;
 
 	if (!lst)
 		return ;
-	if (!*lst)
-	{
-		*lst = new;
-		return ;
-	}
-	temp = ft_lstlast(*lst);
-	temp->next = new;
-    new->prev = temp;
+	last = NULL;
+	if (*lst)
+		last = ps_lstlast(*lst);
+	else
+		last = new;
+	last->next = new;
+    new->prev = last;
 	new->next = *lst;
 }

@@ -20,20 +20,22 @@ typedef struct s_pslist
 {
 	int				data;
 	int				index;
+	char			curr_stack;
 	struct s_pslist	*prev;
 	struct s_pslist	*next;
 }					t_pslist;
 
 typedef struct s_best
 {
-	int	size_a;
-	int	size_b;
-	int	pos;
-	int	target;
-	int	moves;
+	int		pos;
+	int		target;
+	int		moves;
 }		t_best;
 
 t_pslist	*parser(int ac, char **av);
+void		is_sorted(t_pslist *stack);
+void    	algo(t_pslist **stack_1, t_pslist **stack_2);
+void    	algo_3(t_pslist **stack);
 void    	ft_error(void);
 int 		ft_ofatoi(char *nbr);
 void		swap_exec(t_pslist **stack);
