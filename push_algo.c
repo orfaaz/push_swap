@@ -68,10 +68,13 @@ void    isbestmove(int len1, int len2, int target[2], t_best *best)
     {
         best->pos = target[1];
         best->target = target[0];
+        if (moves < 0)
+            moves = -moves;
         best->moves = moves;
-    }
+    }//probleme de valeur absolue quan moves est <0.
 }
 
+//finds where stack_a's top should be pushed. and if it's a new best.
 void    find_target(t_pslist *stack_1, t_pslist *stack_2, int pos, t_best *best)
 {
     int i;
@@ -82,7 +85,7 @@ void    find_target(t_pslist *stack_1, t_pslist *stack_2, int pos, t_best *best)
     len = ps_lstsize(stack_2);
     target[0] = 0;
     target[1] = stack_2->index;
-    while (++i > len)
+    while (++i <= len)
     {
         if (stack_2->index > target[0] && stack_2->index < stack_1->index)
             target[0] = i;
@@ -96,19 +99,22 @@ void    find_target(t_pslist *stack_1, t_pslist *stack_2, int pos, t_best *best)
     isbestmove(ps_lstsize(stack_1), ps_lstsize(stack_2), target, best);
 }
 
+//for each node in stack_1: computes number of moves. picks best. 
 void    algo(t_pslist **stack_1, t_pslist **stack_2)
 {
     t_best      best;
     int         i;
     int         size;
+    t_pslist    *stack;
 
     i = 0;
-    size = ps_lstsize(*stack_1);
-    find_target(*stack_1, *stack_2, i, &best);
+    stack = *stack_1;
+    size = ps_lstsize(stack);
+    find_target(stack, *stack_2, i, &best);
     while (i < size)
     {
-        find_target(*stack_1, *stack_2, i, &best);
-        *stack_1 = (*stack_1)->next;
+        find_target(stack, *stack_2, i, &best);
+        stack = stack->next;
         i++;
     }
     exec_best(stack_1, stack_2, best);

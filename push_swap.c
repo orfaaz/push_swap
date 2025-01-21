@@ -26,6 +26,7 @@ int	main(int ac, char **av)
         return (0);
     stack_a = parser(ac, av);
     is_sorted(stack_a);
+    stack_b = NULL;
     //start algo. if A>5, we push to B w turk method until A==3.
     if (ac > 4)
     {

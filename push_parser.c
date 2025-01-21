@@ -22,12 +22,15 @@ void	is_sorted(t_pslist *stack)
 	not_sorted = 0;
 	while (stack->next != head)
 	{
-		if (stack->index > stack->next->index)
+		if (stack->data > stack->next->data)
 			not_sorted = 1;
 		stack = stack->next;
 	}
 	if (!not_sorted)
+	{
+		ps_lstclear(&stack);
 		exit(0);
+	}
 }
 
 //args can have one symbol, then only digits, int limits.
@@ -46,32 +49,31 @@ static int	isargvalid(char *str)
 }
 
 //indexes each node with an int from 1 to lstlen. easier to work with.
-void	indexing(t_pslist *stack)
+void	indexing(t_pslist *stack, int len)
 {
-	t_pslist	*head;
+	t_pslist	*head;//unused
 	t_pslist	*smallest;
-	int			limit;
-	int			len;
+	int			minimum;
+	int			j;
 	int			i;
 
 	i = 0;
+	j = 0;
 	head = stack;
-	len = ps_lstsize(stack);
-	limit = -2147483648;
-	while(++i != len)
+	minimum = -2147483648;
+	while(i++ != len)
 	{
-		smallest = stack;
-		while(stack->next != head)
+		smallest = stack;//issue on smallest reset
+		while(j++ < len)
 		{
-			if(stack->data < smallest->data && stack->data >= limit)
-			{
+			if(stack->data < smallest->data && stack->data >= minimum
+			&& stack->index < 0)
 				smallest = stack;
-			}
 			stack = stack->next;
 		}
 		smallest->index = i;
-		limit = smallest->data + 1;
-		stack = stack->next;
+		minimum = smallest->data + 1;
+		j = 0;
 	}
 }
 
@@ -118,6 +120,6 @@ t_pslist	*parser(int ac, char **av)
 	lst_last = ps_lstlast(stack_a);
 	lst_last->next = stack_a;
 	stack_a->prev = lst_last;
-	indexing(stack_a);
+	indexing(stack_a, ps_lstsize(stack_a));
 	return (stack_a);
 }

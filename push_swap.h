@@ -20,7 +20,7 @@ typedef struct s_pslist
 {
 	int				data;
 	int				index;
-	char			curr_stack;
+	int			curr_stack;
 	struct s_pslist	*prev;
 	struct s_pslist	*next;
 }					t_pslist;

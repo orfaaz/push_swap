@@ -46,13 +46,25 @@ void    push(t_pslist **orig, t_pslist **dest, int s)
 {
     t_pslist    *temp;
 
-    temp = (*orig)->next;
-    (*orig)->next = *dest;
-    (*orig)->prev = (*dest)->prev;
-    (*dest)->prev->next = (*orig); //segfault
-    (*dest)->prev = (*orig);
-    *dest = *orig;
-    *orig = temp;
+    temp = (*orig);
+    *orig = (*orig)->next;
+    (*orig)->prev = temp->prev;
+    (*orig)->prev->next = (*orig);
+    if (*orig == (*orig)->next)
+        *orig = NULL;
+    if (*dest)
+    {
+        temp->next = *dest;
+        temp->prev = (*dest)->prev;
+        (*dest)->prev->next = temp;
+        (*dest)->prev = temp;
+    }
+    else
+    {
+        temp->next = temp;
+        temp->prev = temp;
+    }
+    *dest = temp;
     (*dest)->curr_stack = s;
     ft_printf("p%c\n", s);
 }
