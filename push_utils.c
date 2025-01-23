@@ -19,6 +19,13 @@ void    ft_error(void)
     exit(1);
 }
 
+int	ft_abs(int n)
+{
+	if (n < 0)
+		n = -n;
+	return (n);
+}
+
 static int	ft_isspace3(const char c)
 {
 	if ((c >= 9 && c <= 13) || (c == ' '))
@@ -51,13 +58,15 @@ static long int ft_atol(char *nbr)
 		return (-num);
 	return (num);
 }
-int ft_ofatoi(char *nbr)
+
+int ft_ofatoi(char *nbr, t_pslist **lst)
 {
     long int    n;
 
     n = ft_atol(nbr);
     if (n <= 2147483647 && n >= -2147483648)
-        return (n);
-    ft_error();
+    	return (n);
+    ps_lstclear(lst, ps_lstsize(*lst));
+	ft_error();
     return(0);
 }

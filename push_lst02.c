@@ -50,16 +50,16 @@ void	ps_lstdelone(t_pslist *lst)
 	free(lst);
 }
 
-void	ps_lstclear(t_pslist **lst)
+void	ps_lstclear(t_pslist **lst, int len)
 {
 	void		*temp;
-	t_pslist	*head;
+	int			i;
 
 	if (!lst || !*lst )
 		return ;
+	i = 0;
 	temp = *lst;
-	head = *lst;
-	while ((*lst)->next != head)
+	while (i++ < len)
 	{
 		*lst = (*lst)->next;
 		free(temp);

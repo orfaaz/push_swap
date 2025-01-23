@@ -20,7 +20,9 @@ void    swap_exec(t_pslist **stack)
 
     temp = (*stack)->next;
     temp->prev = (*stack)->prev;
+    temp->next->prev = *stack;
     (*stack)->next = temp->next;
+    (*stack)->prev->next = temp;
     (*stack)->prev = temp;
     temp->next = *stack;
     *stack = temp;
@@ -47,11 +49,12 @@ void    push(t_pslist **orig, t_pslist **dest, int s)
     t_pslist    *temp;
 
     temp = (*orig);
-    *orig = (*orig)->next;
-    (*orig)->prev = temp->prev;
-    (*orig)->prev->next = (*orig);
+    temp->next->prev = temp->prev;
+    temp->prev->next = temp->next;
     if (*orig == (*orig)->next)
         *orig = NULL;
+    else
+        *orig = (*orig)->next;
     if (*dest)
     {
         temp->next = *dest;
@@ -69,7 +72,7 @@ void    push(t_pslist **orig, t_pslist **dest, int s)
     ft_printf("p%c\n", s);
 }
 
-void    rot(int s, ...)
+void    rot(int *increment, int s, ...)
 {
     va_list     arg;
     t_pslist    **stack;
@@ -86,11 +89,12 @@ void    rot(int s, ...)
         ft_putstr_fd("rr\n", 1);
     }
     va_end(arg);
+    (*increment)++;
 }
 
-void    revrot(int s, ...)
+void    revrot(int *decrement, int s, ...)
 {
-    va_list arg;
+    va_list     arg;
     t_pslist    **stack;
 
     va_start(arg, s);
@@ -105,4 +109,5 @@ void    revrot(int s, ...)
         ft_putstr_fd("rrr\n", 1);
     }
     va_end(arg);
+    (*decrement)--;
 }

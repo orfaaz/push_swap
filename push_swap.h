@@ -19,17 +19,18 @@
 typedef struct s_pslist
 {
 	int				data;
-	int				index;
-	int			curr_stack;
+	int				i;
+	int				curr_stack;
 	struct s_pslist	*prev;
 	struct s_pslist	*next;
 }					t_pslist;
 
 typedef struct s_best
 {
-	int		pos;
-	int		target;
-	int		moves;
+	int	pos;
+	int	target;
+	int	push_dir;
+	int	moves;
 }		t_best;
 
 t_pslist	*parser(int ac, char **av);
@@ -37,17 +38,18 @@ void		is_sorted(t_pslist *stack);
 void    	algo(t_pslist **stack_1, t_pslist **stack_2);
 void    	algo_3(t_pslist **stack);
 void    	ft_error(void);
-int 		ft_ofatoi(char *nbr);
+int			ft_abs(int n);
+int 		ft_ofatoi(char *nbr, t_pslist **lst);
 void		swap_exec(t_pslist **stack);
 void	    push(t_pslist **orig, t_pslist **dest, int s);
 void    	swap(int s, ...);
-void    	rot(int s, ...);
-void    	revrot(int s, ...);
+void    	rot(int *increment, int s, ...);
+void    	revrot(int *decrement, int s, ...);
 t_pslist	*ps_lstnew(int data);
 void		ps_lstadd_front(t_pslist **lst, t_pslist *new);
 void		ps_lstadd_back(t_pslist **lst, t_pslist *new);
 int			ps_lstsize(t_pslist *lst);
 t_pslist	*ps_lstlast(t_pslist *lst);
 void		ps_lstdelone(t_pslist *lst);
-void		ps_lstclear(t_pslist **lst);
+void		ps_lstclear(t_pslist **lst, int len);
 #endif

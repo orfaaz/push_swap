@@ -22,7 +22,7 @@ t_pslist	*ps_lstnew(int data)
 	if (!new_node)
 		return (NULL);
 	new_node->data = data;
-	new_node->index = -1;
+	new_node->i = -1;
 	new_node->curr_stack = 'a';
 	new_node->prev = NULL;
 	new_node->next = NULL;

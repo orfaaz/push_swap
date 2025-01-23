@@ -34,11 +34,32 @@ int	main(int ac, char **av)
         if (ac > 5)
             push(&stack_a, &stack_b, 'b');
     }
-    while (ac-- > 4)
+    t_pslist    *head;//test
+    while (ps_lstsize(stack_a) > 3)
+    {
         algo(&stack_a, &stack_b);
+        head = stack_b;
+        while (stack_b->next != head)//test
+        {
+            ft_printf("%d (%d), ", stack_b->data, stack_b->i);
+            stack_b = stack_b->next;
+        }
+        ft_printf("%d (%d), ", stack_b->data, stack_b->i);
+        stack_b = stack_b->next;
+    }
+    // ps_lstclear(&stack_a, ps_lstsize(stack_a));
+    // ps_lstclear(&stack_b, ps_lstsize(stack_b));
+    // exit(0);
+    
     //when A=3. we sort in the least amount of moves, then reverse algo
     algo_3(&stack_a);
     while (stack_b)
         algo(&stack_b, &stack_a);
-    ps_lstclear(&stack_a);
+    //display stack_a for test
+    while (ac-- > 1)
+    {
+        ft_printf("%d (%d), ", stack_a->data, stack_a->i);
+        stack_a = stack_a->next;
+    }
+    ps_lstclear(&stack_a, ps_lstsize(stack_a));
 }

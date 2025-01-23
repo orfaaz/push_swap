@@ -28,7 +28,7 @@ void	is_sorted(t_pslist *stack)
 	}
 	if (!not_sorted)
 	{
-		ps_lstclear(&stack);
+		ps_lstclear(&stack, ps_lstsize(stack));
 		exit(0);
 	}
 }
@@ -51,29 +51,28 @@ static int	isargvalid(char *str)
 //indexes each node with an int from 1 to lstlen. easier to work with.
 void	indexing(t_pslist *stack, int len)
 {
-	t_pslist	*head;//unused
 	t_pslist	*smallest;
 	int			minimum;
 	int			j;
 	int			i;
 
 	i = 0;
-	j = 0;
-	head = stack;
 	minimum = -2147483648;
 	while(i++ != len)
 	{
-		smallest = stack;//issue on smallest reset
+		while (stack->i != -1 && j++ < len * 2)
+			stack = stack->next;
+		j = 0;
+		smallest = stack;
 		while(j++ < len)
 		{
 			if(stack->data < smallest->data && stack->data >= minimum
-			&& stack->index < 0)
+			&& stack->i < 0)
 				smallest = stack;
 			stack = stack->next;
 		}
-		smallest->index = i;
+		smallest->i = i;
 		minimum = smallest->data + 1;
-		j = 0;
 	}
 }
 
@@ -87,7 +86,7 @@ static void	checkdup(t_pslist **stack_a, int data)
 	{
 		if (data == (*temp).data)
 		{
-			ps_lstclear(stack_a);
+			ps_lstclear(stack_a, ps_lstsize(*stack_a));
 			ft_error();
 		}
 		temp = temp->next;
@@ -114,7 +113,7 @@ t_pslist	*parser(int ac, char **av)
 	stack_a = NULL;
 	while (--i)
 	{
-		data = ft_ofatoi(av[i]);
+		data = ft_ofatoi(av[i], &stack_a);
 		checkdup(&stack_a, data);
 	}
 	lst_last = ps_lstlast(stack_a);
