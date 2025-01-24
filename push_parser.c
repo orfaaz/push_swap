@@ -36,7 +36,7 @@ void	is_sorted(t_pslist *stack)
 //args can have one symbol, then only digits, int limits.
 static int	isargvalid(char *str)
 {
-	if	(!str)
+	if (!str)
 		return (0);
 	if (*str == '+' || *str == '-')
 		str++;
@@ -58,16 +58,16 @@ void	indexing(t_pslist *stack, int len)
 
 	i = 0;
 	minimum = -2147483648;
-	while(i++ != len)
+	while (i++ != len)
 	{
 		while (stack->i != -1 && j++ < len * 2)
 			stack = stack->next;
 		j = 0;
 		smallest = stack;
-		while(j++ < len)
+		while (j++ < len)
 		{
-			if(stack->data < smallest->data && stack->data >= minimum
-			&& stack->i < 0)
+			if (stack->data < smallest->data && stack->data >= minimum
+				&& stack->i < 0)
 				smallest = stack;
 			stack = stack->next;
 		}

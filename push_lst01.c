@@ -41,7 +41,7 @@ void	ps_lstadd_front(t_pslist **lst, t_pslist *new)
 	else
 		*lst = new;
 	new->next = *lst;
-    (*lst)->prev = new;
+	(*lst)->prev = new;
 	if (last)
 		last->next = new;
 	*lst = new;
@@ -59,6 +59,6 @@ void	ps_lstadd_back(t_pslist **lst, t_pslist *new)
 	else
 		last = new;
 	last->next = new;
-    new->prev = last;
+	new->prev = last;
 	new->next = *lst;
 }

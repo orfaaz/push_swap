@@ -35,16 +35,17 @@ typedef struct s_best
 
 t_pslist	*parser(int ac, char **av);
 void		is_sorted(t_pslist *stack);
-void    	algo(t_pslist **stack_1, t_pslist **stack_2);
-void    	algo_3(t_pslist **stack);
-void    	ft_error(void);
+void		algo(t_pslist **stack_1, t_pslist **stack_2);
+void		algo_end(t_pslist **stack);
+void		algo_3(t_pslist **stack);
+void		ft_error(void);
 int			ft_abs(int n);
-int 		ft_ofatoi(char *nbr, t_pslist **lst);
+int			ft_ofatoi(char *nbr, t_pslist **lst);
 void		swap_exec(t_pslist **stack);
-void	    push(t_pslist **orig, t_pslist **dest, int s);
-void    	swap(int s, ...);
-void    	rot(int *increment, int s, ...);
-void    	revrot(int *decrement, int s, ...);
+void		push(t_pslist **orig, t_pslist **dest, int s);
+void		swap(int s, ...);
+void		rot(int *increment, int s, ...);
+void		revrot(int *decrement, int s, ...);
 t_pslist	*ps_lstnew(int data);
 void		ps_lstadd_front(t_pslist **lst, t_pslist *new);
 void		ps_lstadd_back(t_pslist **lst, t_pslist *new);

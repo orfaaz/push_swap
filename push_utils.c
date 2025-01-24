@@ -13,10 +13,10 @@
 #include "push_swap.h"
 #include "libft.h"
 
-void    ft_error(void)
+void	ft_error(void)
 {
-    ft_putstr_fd("Error\n", 2);
-    exit(1);
+	ft_putstr_fd("Error\n", 2);
+	exit(1);
 }
 
 int	ft_abs(int n)
@@ -33,10 +33,10 @@ static int	ft_isspace3(const char c)
 	return (0);
 }
 
-static long int ft_atol(char *nbr)
+static long int	ft_atol(char *nbr)
 {
-	int	        sign;
-	long int    num;
+	int			sign;
+	long int	num;
 
 	sign = 0;
 	num = 0;
@@ -59,14 +59,14 @@ static long int ft_atol(char *nbr)
 	return (num);
 }
 
-int ft_ofatoi(char *nbr, t_pslist **lst)
+int	ft_ofatoi(char *nbr, t_pslist **lst)
 {
-    long int    n;
+	long int	n;
 
-    n = ft_atol(nbr);
-    if (n <= 2147483647 && n >= -2147483648)
-    	return (n);
-    ps_lstclear(lst, ps_lstsize(*lst));
+	n = ft_atol(nbr);
+	if (n <= 2147483647 && n >= -2147483648)
+		return (n);
+	ps_lstclear(lst, ps_lstsize(*lst));
 	ft_error();
-    return(0);
+	return (0);
 }

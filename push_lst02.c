@@ -42,20 +42,12 @@ t_pslist	*ps_lstlast(t_pslist *lst)
 	return (lst);
 }
 
-//!\not used
-void	ps_lstdelone(t_pslist *lst)
-{
-	if (!lst)
-		return ;
-	free(lst);
-}
-
 void	ps_lstclear(t_pslist **lst, int len)
 {
-	void		*temp;
-	int			i;
+	void	*temp;
+	int		i;
 
-	if (!lst || !*lst )
+	if (!lst || !*lst)
 		return ;
 	i = 0;
 	temp = *lst;

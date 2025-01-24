@@ -10,56 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "push_swap.h"
 #include "libft.h"
 
 //!\ av[1] must be at the top of the stack: Head == stack top.
 // once sorted, the smallest n is at the top of the stack.
+//If no parameters are specified, the program must not display 
+//anything and give the prompt back
 int	main(int ac, char **av)
 {
-    t_pslist    *stack_a;
-    t_pslist    *stack_b;
-    //If no parameters are specified, the program must not display 
-    //anything and give the prompt back
-    if (ac == 1)
-        return (0);
-    stack_a = parser(ac, av);
-    is_sorted(stack_a);
-    stack_b = NULL;
-    //start algo. if A>5, we push to B w turk method until A==3.
-    if (ac > 4)
-    {
-        push(&stack_a, &stack_b, 'b');
-        if (ac > 5)
-            push(&stack_a, &stack_b, 'b');
-    }
-    t_pslist    *head;//test
-    while (ps_lstsize(stack_a) > 3)
-    {
-        algo(&stack_a, &stack_b);
-        head = stack_b;
-        while (stack_b->next != head)//test
-        {
-            ft_printf("%d (%d), ", stack_b->data, stack_b->i);
-            stack_b = stack_b->next;
-        }
-        ft_printf("%d (%d), ", stack_b->data, stack_b->i);
-        stack_b = stack_b->next;
-    }
-    // ps_lstclear(&stack_a, ps_lstsize(stack_a));
-    // ps_lstclear(&stack_b, ps_lstsize(stack_b));
-    // exit(0);
-    
-    //when A=3. we sort in the least amount of moves, then reverse algo
-    algo_3(&stack_a);
-    while (stack_b)
-        algo(&stack_b, &stack_a);
-    //display stack_a for test
-    while (ac-- > 1)
-    {
-        ft_printf("%d (%d), ", stack_a->data, stack_a->i);
-        stack_a = stack_a->next;
-    }
-    ps_lstclear(&stack_a, ps_lstsize(stack_a));
+	t_pslist	*stack_a;
+	t_pslist	*stack_b;
+
+	if (ac == 1)
+		return (0);
+	stack_a = parser(ac, av);
+	is_sorted(stack_a);
+	stack_b = NULL;
+	if (ac > 4)
+	{
+		push(&stack_a, &stack_b, 'b');
+		if (ac > 5)
+			push(&stack_a, &stack_b, 'b');
+	}
+	while (ps_lstsize(stack_a) > 3)
+		algo(&stack_a, &stack_b);
+	algo_3(&stack_a);
+	while (stack_b)
+		algo(&stack_b, &stack_a);
+	ps_lstclear(&stack_a, ps_lstsize(stack_a));
 }

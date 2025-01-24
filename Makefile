@@ -13,7 +13,8 @@
 NAME = push_swap
 
 SRC = push_swap.c \
-	push_algo.c \
+	push_algo_1.c \
+	push_algo_2.c \
 	push_parser.c \
 	push_lst01.c \
 	push_lst02.c \
