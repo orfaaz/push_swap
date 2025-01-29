@@ -44,13 +44,12 @@ int			ft_ofatoi(char *nbr, t_pslist **lst);
 void		swap_exec(t_pslist **stack);
 void		push(t_pslist **orig, t_pslist **dest, int s);
 void		swap(int s, ...);
-void		rot(int *increment, int s, ...);
-void		revrot(int *decrement, int s, ...);
+void		rot(int *decrement, int s, ...);
+void		revrot(int *increment, int s, ...);
 t_pslist	*ps_lstnew(int data);
 void		ps_lstadd_front(t_pslist **lst, t_pslist *new);
 void		ps_lstadd_back(t_pslist **lst, t_pslist *new);
 int			ps_lstsize(t_pslist *lst);
 t_pslist	*ps_lstlast(t_pslist *lst);
-void		ps_lstdelone(t_pslist *lst);
 void		ps_lstclear(t_pslist **lst, int len);
 #endif

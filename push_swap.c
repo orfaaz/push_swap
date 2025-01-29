@@ -13,10 +13,6 @@
 #include "push_swap.h"
 #include "libft.h"
 
-//!\ av[1] must be at the top of the stack: Head == stack top.
-// once sorted, the smallest n is at the top of the stack.
-//If no parameters are specified, the program must not display 
-//anything and give the prompt back
 int	main(int ac, char **av)
 {
 	t_pslist	*stack_a;

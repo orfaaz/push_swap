@@ -64,4 +64,6 @@ void	algo_3(t_pslist **s)
 		rot(&useless, 'a', s);
 		swap('a', s);
 	}
+	else if ((*s)->i > (*s)->next->i)
+		rot(&useless, 'a', s);
 }

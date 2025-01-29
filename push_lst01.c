@@ -13,7 +13,6 @@
 #include "push_swap.h"
 #include "libft.h"
 
-//!\needs update for circulat list
 t_pslist	*ps_lstnew(int data)
 {
 	t_pslist	*new_node;

@@ -72,7 +72,7 @@ void	push(t_pslist **orig, t_pslist **dest, int s)
 	ft_printf("p%c\n", s);
 }
 
-void	rot(int *increment, int s, ...)
+void	rot(int *decrement, int s, ...)
 {
 	va_list		arg;
 	t_pslist	**stack;
@@ -89,10 +89,10 @@ void	rot(int *increment, int s, ...)
 		ft_putstr_fd("rr\n", 1);
 	}
 	va_end(arg);
-	(*increment)++;
+	(*decrement)--;
 }
 
-void	revrot(int *decrement, int s, ...)
+void	revrot(int *increment, int s, ...)
 {
 	va_list		arg;
 	t_pslist	**stack;
@@ -109,5 +109,5 @@ void	revrot(int *decrement, int s, ...)
 		ft_putstr_fd("rrr\n", 1);
 	}
 	va_end(arg);
-	(*decrement)--;
+	(*increment)++;
 }

@@ -91,6 +91,11 @@ static void	checkdup(t_pslist **stack_a, int data)
 		}
 		temp = temp->next;
 	}
+	if (temp && data == (*temp).data)
+	{
+		ps_lstclear(stack_a, ps_lstsize(*stack_a));
+		ft_error();
+	}
 	ps_lstadd_front(stack_a, ps_lstnew(data));
 }
 

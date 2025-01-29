@@ -14,17 +14,20 @@
 #include "libft.h"
 
 //best.pos is stack_1 distance from top. best.target is stack_2's.
-void	exec_best(t_pslist **stack_1, t_pslist **stack_2, t_best best)
+static void	exec_best(t_pslist **stack_1, t_pslist **stack_2, t_best best)
 {
-	int	useless;
-
-	useless = 0;
 	while (best.moves--)
 	{
 		if (best.pos > 0 && best.target > 0)
-			rot(&useless, 's', stack_1, stack_2);
+		{
+			rot(&best.pos, 'r', stack_1, stack_2);
+			best.target--;
+		}
 		else if (best.pos < 0 && best.target < 0)
-			revrot(&useless, 's', stack_1, stack_2);
+		{
+			revrot(&best.pos, 'r', stack_1, stack_2);
+			best.target++;
+		}
 		else if (best.pos > 0)
 			rot(&best.pos, (*stack_1)->curr_stack, stack_1);
 		else if (best.pos < 0)
@@ -38,16 +41,16 @@ void	exec_best(t_pslist **stack_1, t_pslist **stack_2, t_best best)
 }
 
 //target[1] is position in stack 1, target[0] is position of target in stack 2.
-void	isbestmove(int len1, int len2, int target[2], t_best *best)
+static void	isbestmove(int len1, int len2, int target[2], t_best *best)
 {
 	int	moves;
 
+	if (best->push_dir == 'a')
+		target[0]++;
 	if (target[1] > len1 / 2)
 		target[1] = target[1] - len1;
 	if (target[0] > len2 / 2)
 		target[0] = target[0] - len2;
-	if (best->push_dir == 'a')
-		target[0]++;
 	if ((target[0] < 0 && target[1] < 0) || (target[0] > 0 && target[1] > 0))
 	{
 		if (ft_abs(target[1]) > ft_abs(target[0]))
@@ -65,8 +68,14 @@ void	isbestmove(int len1, int len2, int target[2], t_best *best)
 	}
 }
 
+static void	assign(int *max, int *target, int index, int lstindex)
+{
+	*max = lstindex;
+	*target = index;
+}
+
 //finds where stack_a's top should be pushed. and if it's a new best.
-void	find_target(t_pslist *stack_1, t_pslist *stack_2, int pos, t_best *best)
+static void	find_target(t_pslist *stack_1, t_pslist *stack_2, int pos, t_best *best)
 {
 	int	i;
 	int	max[2];
@@ -79,15 +88,9 @@ void	find_target(t_pslist *stack_1, t_pslist *stack_2, int pos, t_best *best)
 	while (++i < ps_lstsize(stack_2))
 	{
 		if (stack_2->i > max[0] && stack_2->i < stack_1->i)
-		{
-			max[0] = stack_2->i;
-			target[0] = i;
-		}
+			assign(&max[0], &target[0], i, stack_2->i);
 		else if (stack_2->i > max[1] && stack_2->i > max[0])
-		{
-			max[1] = stack_2->i;
-			target[1] = i;
-		}
+			assign(&max[1], &target[1], i, stack_2->i);
 		stack_2 = stack_2->next;
 	}
 	if (target[0] == -1)
@@ -96,7 +99,7 @@ void	find_target(t_pslist *stack_1, t_pslist *stack_2, int pos, t_best *best)
 	isbestmove(ps_lstsize(stack_1), ps_lstsize(stack_2), target, best);
 }
 
-//for each node in stack_1: computes number of moves. picks best. 
+//for each node in stack_1: computes number of moves necessary. picks best. 
 void	algo(t_pslist **stack_1, t_pslist **stack_2)
 {
 	t_best		best;
